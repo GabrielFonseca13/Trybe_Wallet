@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { email, valor, moeda } = this.props;
+    const { email, valor, currencies } = this.props;
     return (
       <div>
         <h4>
@@ -13,7 +13,7 @@ class Header extends Component {
         <p data-testid="email-field">
           Email:
           {' '}
-          {email}
+          { email }
         </p>
         <p data-testid="total-field">
           Despesa Total:
@@ -23,7 +23,7 @@ class Header extends Component {
         <p data-testid="header-currency-field">
           Moeda:
           {' '}
-          {moeda[0]}
+          { currencies[0] }
 
         </p>
       </div>
@@ -34,13 +34,13 @@ class Header extends Component {
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   valor: PropTypes.number.isRequired,
-  moeda: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   valor: state.wallet.valor,
-  moeda: state.wallet.moeda,
+  currencies: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps)(Header);

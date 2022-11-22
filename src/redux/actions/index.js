@@ -6,3 +6,12 @@ export const saveUser = (payload) => (
     payload,
   }
 );
+
+export const FETCH_CURRENCIES = 'FETCH_CURRENCIES';
+
+export const fetchCurrencies = (payload) => (
+  {
+    type: FETCH_CURRENCIES,
+    payload,
+  }
+);
