@@ -33,10 +33,7 @@ class Header extends Component {
           { expenses.length === 0 ? '0.00' : value }
         </p>
         <p data-testid="header-currency-field">
-          Moeda:
-          {' '}
-          { currencies[0] }
-
+          BRL
         </p>
         {/* <button
           onClick={ () => {
