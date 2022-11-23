@@ -17,7 +17,7 @@ class Header extends Component {
   };
 
   render() {
-    const { email, currencies, expenses } = this.props;
+    const { email, expenses } = this.props;
     const value = Number(this.totalSum());
     return (
       <div>
@@ -52,7 +52,7 @@ class Header extends Component {
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   // value: PropTypes.number.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape).isRequired,
   // exchangeRates
 };
