@@ -9,8 +9,6 @@ class Header extends Component {
     const sum = expenses.reduce((acc, curr) => {
       const currencyToMatch = curr.currency;
       acc += curr.value * curr.exchangeRates[currencyToMatch].ask;
-      // console.log(acc);
-      // console.log(curr);
       return acc;
     }, 0);
     return parseFloat(sum).toFixed(2);

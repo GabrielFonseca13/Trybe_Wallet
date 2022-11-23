@@ -39,6 +39,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: action.payload,
     };
+
   default:
     return state;
   }

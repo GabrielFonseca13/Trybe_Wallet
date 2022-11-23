@@ -3,6 +3,7 @@ export const FETCH_CURRENCIES = 'FETCH_CURRENCIES';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 export const SOMA_TOTAL_DESPESA = 'SOMA_TOTAL_DESPESA';
 export const SAVE_CAMBIO = 'SAVE_CAMBIO';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const saveUser = (payload) => (
   {
