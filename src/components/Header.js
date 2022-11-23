@@ -6,14 +6,14 @@ class Header extends Component {
   totalSum = () => {
     const { expenses } = this.props;
     // console.log(expenses);
-    const sim = expenses.reduce((acc, curr) => {
+    const sum = expenses.reduce((acc, curr) => {
       const currencyToMatch = curr.currency;
       acc += curr.value * curr.exchangeRates[currencyToMatch].ask;
-      console.log(acc);
-      console.log(curr);
+      // console.log(acc);
+      // console.log(curr);
       return acc;
     }, 0);
-    return parseFloat(sim).toFixed(2);
+    return parseFloat(sum).toFixed(2);
   };
 
   render() {
