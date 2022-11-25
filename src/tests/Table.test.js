@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
+import mockData from './helpers/mockData';
 
 const EMAIL_TESTE = 'EMAIL_TESTE@TESTE.COM';
 const PASSWORD_TEST = 'password';
@@ -40,7 +41,13 @@ describe('Testes da Página Wallet', () => {
   });
 
   it('Testa se os elementos funcionam', async () => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(mockData),
+    }));
     renderWithRouterAndRedux(<App />);
+
+    expect(global.fetch).toHaveBeenCalledTimes(0);
+
     const emailInput = screen.getByTestId('email-input');
     const passwordInput = screen.getByTestId('password-input');
     const submitButton = screen.getByRole('button', { name: /entrar/i });
@@ -53,8 +60,14 @@ describe('Testes da Página Wallet', () => {
 
     userEvent.click(submitButton);
 
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
     const emailField = screen.getByTestId('email-field');
     expect(emailField).toBeInTheDocument();
+
+    const totalExpenses = screen.getByTestId('total-field');
+    expect(totalExpenses).toBeInTheDocument();
+    expect(totalExpenses).toHaveTextContent('0.00');
 
     const valueInput = screen.getByTestId('value-input');
     const descriptionInput = screen.getByTestId('description-input');
@@ -63,11 +76,24 @@ describe('Testes da Página Wallet', () => {
     userEvent.type(valueInput, '111.11');
     userEvent.type(descriptionInput, 'Teste Description');
     userEvent.click(addExpenseButton);
-  });
-  it('Testa se a API foi chamada com o endpoint correto', () => {
-  });
-  it('Testa se é renderizado a nova despesa na tela', () => {
-  });
-  it('Testa se o Botão apaga a despesa', () => {
+
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+
+    const valueTable = await screen.findByText('111.11');
+    const descriptionTable = await screen.findByText('Teste Description');
+
+    expect(valueTable).toBeInTheDocument();
+    expect(descriptionTable).toBeInTheDocument();
+
+    expect(totalExpenses).toHaveTextContent('528.12');
+
+    const deleteButton = screen.getByRole('button', { name: 'Editar/Excluir' });
+    expect(deleteButton).toBeInTheDocument();
+
+    userEvent.click(deleteButton);
+
+    expect(valueTable).not.toBeInTheDocument();
+    expect(descriptionTable).not.toBeInTheDocument();
+    expect(totalExpenses).toHaveTextContent('0.00');
   });
 });
